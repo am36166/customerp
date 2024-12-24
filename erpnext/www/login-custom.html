@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Frappe (Optional depending on your environment) -->
+    <script src="/assets/frappe/dist/js/frappe-web.bundle.HIC7R6YZ.js"></script>
+    <script src="/assets/erpnext/dist/js/erpnext-web.bundle.253I7LT4.js"></script>
+    <style>
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="login-form">
+            <div class="form-group">
+                <label for="usr">Nom d'utilisateur</label>
+                <input type="text" id="usr" name="usr" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Mot de passe</label>
+                <input type="password" id="pwd" name="pwd" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Connexion</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#login-form").on("submit", function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: '/api/method/erpnext.auth.authenticate',
+                    type: 'POST',
+                    data: {
+                        usr: $("#usr").val(),
+                        pwd: $("#pwd").val()
+                    },
+                    success: function(r) {
+                        if(r.message && r.message.success) {
+                            window.location.href = r.message.redirect_url;
+                        } else {
+                            frappe.msgprint("Échec de la connexion");
+                        }
+                    },
+                    error: function(err) {
+                        frappe.msgprint("Une erreur s'est produite lors de l'authentification");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
