@@ -1,4 +1,5 @@
-from frappe import frappe
+import frappe
+no_cache = 1
 
 def get_context(context):
     query = """
@@ -23,10 +24,9 @@ def get_context(context):
 
     res = frappe.db.sql(query, as_dict=True)
 
-    # Organisation des données par enseignant
     enseignant_data = {}
     for row in res:
-        nom = row['nom']  # Extraire le nom de l'enseignant
+        nom = row['nom']
         if nom not in enseignant_data:
             enseignant_data[nom] = {
                 "prenom": row["prenom"],
@@ -45,3 +45,4 @@ def get_context(context):
         })
 
     context.enseignant_data = enseignant_data
+    return context

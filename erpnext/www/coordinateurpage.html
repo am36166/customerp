@@ -1,19 +1,22 @@
-{% extends "templates/web.html" %}
-
-{% block title %} Enseignant {% endblock %}
-
-{% block page_content %}
-<h1>Enseignants</h1>
-
-{% for enseignant, details in enseignant_data.items() %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coordinateur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% for enseignant, details in enseignant_data.items() %}
     <div class="card mb-3">
-        <div>
-            <h2>{{ enseignant }}</h2>
-            <p>Grade : {{ details.grade }}</p>
-            <p>Période d'avancement : {{ details.periode_avancement }}</p>
-            <p>Établissement : {{ details.etablissement }}</p>
-        </div>
         <div class="card-body">
+            <h2 class="card-title">{{ enseignant }}</h2>
+            <p class="card-text">Grade : {{ details.grade }}</p>
+            <p class="card-text">Période d'avancement : {{ details.periode_avancement }}</p>
+            <p class="card-text">Établissement : {{ details.etablissement }}</p>
+        </div>
+        
+        <div class="card-footer">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -44,4 +47,6 @@
     </div>
 {% endfor %}
 
-{% endblock %}
+
+</body>
+</html>
