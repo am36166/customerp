@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frappe Test</title>
+    <script type="text/javascript" src="/assets/frappe/dist/js/file_uploader.bundle.IC62HUZK.js"></script>
+    <script>
+        
+		window.frappe = {};
+		frappe.ready_events = [];
+		frappe.ready = function(fn) {
+			frappe.ready_events.push(fn);
+		}
+    </script>
+</head>
+<body>
+    <!-- Contenu de votre application -->
+
+
+    <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.HIC7R6YZ.js"></script>
+    <script type="text/javascript" src="/website_script.js"></script>
+    <script type="text/javascript" src="/assets/erpnext/dist/js/erpnext-web.bundle.253I7LT4.js"></script>
+    <script>
+        frappe.ready(function() {
+        frappe.call({
+            method: 'frappe.auth.get_logged_user',
+            callback: function(response) {
+                console.log(response.message); // Affiche le nom d'utilisateur
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

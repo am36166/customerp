@@ -49,7 +49,7 @@ $(document).ready(function () {
         $(this).closest(".encadrement-item").remove();
     });
 
-    // Soumettre le formulaire au serveur Frappe
+    // Soumettre le formulaire au serveur Frappe avec frappe.call
     $("#enseignant-form").on("submit", function (event) {
         event.preventDefault();
 
@@ -89,19 +89,22 @@ $(document).ready(function () {
             });
         });
 
-        // Appel à l'API REST de Frappe
-        $.ajax({
-            url: "/api/resource/Enseignant",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(formData),
-            success: function (response) {
-                alert("Enseignant ajouté avec succès !");
-                console.log(response);
+        // Appel à l'API REST de Frappe avec frappe.call
+        frappe.call({
+            method: 'frappe.client.insert',
+            args: {
+                doc: {
+                    doctype: 'Enseignant',
+                    ...formData
+                }
             },
-            error: function (xhr, status, error) {
+            success: function(r) {
+                alert("Enseignant ajouté avec succès !");
+                console.log(r);
+            },
+            error: function(r) {
                 alert("Erreur lors de l'ajout !");
-                console.error(xhr.responseText);
+                console.error(r);
             }
         });
     });

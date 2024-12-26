@@ -3,50 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>coordinateur</title>
+    <title>Coordinateur - Liste et Notifications</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    {% for enseignant, details in enseignant_data.items() %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <h2 class="card-title">{{ enseignant }}</h2>
-            <p class="card-text">Grade : {{ details.grade }}</p>
-            <p class="card-text">Période d'avancement : {{ details.periode_avancement }}</p>
-            <p class="card-text">Établissement : {{ details.etablissement }}</p>
+    <div class="container mt-5">
+        <!-- Notifications Section -->
+        <h1 class="text-center mb-4">Notifications</h1>
+        <div id="coordinator-notifications" class="mb-5">
+            <!-- Les notifications ajoutées dynamiquement apparaîtront ici -->
         </div>
-        
-        <div class="card-footer">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Année Universitaire</th>
-                        <th>Filière</th>
-                        <th>Semestre</th>
-                        <th>Enseignement Effectué</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for enseignement in details.enseignements %}
-                        <tr>
-                            <td>{{ enseignement.annee_universitaire }}</td>
-                            <td>{{ enseignement.filiere }}</td>
-                            <td>{{ enseignement.semestre }}</td>
-                            <td>
-                                <ul class="list-unstyled mb-0">
-                                    <li>TD : {{ enseignement.td }}</li>
-                                    <li>TP : {{ enseignement.tp }}</li>
-                                    <li>Cours : {{ enseignement.cours }}</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
+        <!-- Liste des Enseignants -->
+        <h1 class="text-center mb-4">Liste des Enseignants</h1>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enseignant, details in enseignant_data.items() %}
+                <tr>
+                    <td>{{ enseignant }}</td>
+                    <td>{{ details.prenom }}</td>
+                    <td>{{ details.grade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-{% endfor %}
 
-
+    <script>
+        function fetchNotifications() {
+            $.ajax({
+                url: "/api/method/erpnext.api.get_notifications",
+                type: "GET",
+                success: function(response) {
+                    var notificationsDiv = $('#coordinator-notifications');
+                    notificationsDiv.empty();  // Nettoyer les anciennes notifications
+                    console.log(response);
+                    if (Array.isArray(response) && response.length > 0) {
+                        response.forEach(function(notification) {
+                            var notifHTML = `
+                                <div class="alert alert-info">
+                                    <strong>${notification.title}</strong><br>
+                                    ${notification.message}
+                                </div>
+                            `;
+                            notificationsDiv.append(notifHTML);
+                        });
+                    } else {
+                        console.error("La réponse n'est pas un tableau de notifications valide.");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erreur lors de la récupération des notifications :", xhr.responseText);
+                }
+            });
+        }
+    
+        // Appel initial pour charger les notifications
+        fetchNotifications();
+    
+        // Optionnel : Mise à jour automatique des notifications
+        // setInterval(fetchNotifications, 3000); 
+    </script>
+    
 </body>
 </html>
