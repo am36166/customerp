@@ -18,7 +18,7 @@ def authenticate(usr, pwd):
         if usr == "Administrator":
             redirect_url = "/app"
         elif "Enseignant" in roles:
-            redirect_url = "/enseignant-dash"
+            redirect_url = "/enseignant-annexes"
         elif "Coordinateur" in roles:
             redirect_url = "/coordinateurpage"
         elif "Membre Commission" in roles:
@@ -52,7 +52,7 @@ def check_role_access():
 
     # Définir les chemins d'accès et leurs rôles requis
     role_paths = {
-        "/enseignant-dash": "Enseignant",
+        "/enseignant-annexes": "Enseignant",
         "/coordinateurpage": "Coordinateur",
         "/commission-dash": "Membre Commission",
         "/app": "Administrator"

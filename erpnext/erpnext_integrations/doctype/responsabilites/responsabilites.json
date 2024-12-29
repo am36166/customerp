@@ -1,69 +1,57 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-12-20 15:04:56.629880",
+ "creation": "2024-12-28 21:34:03.128725",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "type",
-  "annee_universitaire",
-  "type_licence",
-  "titre_pfe",
-  "etudiants",
-  "nom_encadrants"
+  "annee",
+  "filiere",
+  "semestre",
+  "intitule_module"
  ],
  "fields": [
-  {
-   "columns": 1,
-   "fieldname": "annee_universitaire",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "annee universitaire"
-  },
-  {
-   "columns": 1,
-   "fieldname": "type_licence",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "type licence"
-  },
-  {
-   "columns": 1,
-   "fieldname": "titre_pfe",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "titre pfe"
-  },
-  {
-   "columns": 1,
-   "fieldname": "etudiants",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "etudiants"
-  },
-  {
-   "columns": 1,
-   "fieldname": "nom_encadrants",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "nom encadrants"
-  },
   {
    "columns": 1,
    "fieldname": "type",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "type"
+  },
+  {
+   "fieldname": "annee",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Annee"
+  },
+  {
+   "fieldname": "filiere",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "filiere"
+  },
+  {
+   "fieldname": "semestre",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "semestre"
+  },
+  {
+   "fieldname": "intitule_module",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "intitule module"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-28 21:43:13.296918",
+ "modified": "2024-12-28 21:44:43.764448",
  "modified_by": "Administrator",
  "module": "ERPNext Integrations",
- "name": "Encadrement",
+ "name": "Responsabilites",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

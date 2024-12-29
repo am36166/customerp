@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class Enseignements(Document):
+class Responsabilites(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,16 +14,13 @@ class Enseignements(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		annee_universitaire: DF.Data | None
-		cours: DF.Float
+		annee: DF.Data | None
 		filiere: DF.Data | None
+		intitule_module: DF.Data | None
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
 		semestre: DF.Data | None
-		td: DF.Float
-		tp: DF.Float
 		type: DF.Data | None
-		vh: DF.Float
 	# end: auto-generated types
 	pass

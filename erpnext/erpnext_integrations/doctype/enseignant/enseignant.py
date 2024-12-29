@@ -14,6 +14,7 @@ class Enseignant(Document):
 	if TYPE_CHECKING:
 		from erpnext.erpnext_integrations.doctype.encadrement.encadrement import Encadrement
 		from erpnext.erpnext_integrations.doctype.enseignements.enseignements import Enseignements
+		from erpnext.erpnext_integrations.doctype.responsabilites.responsabilites import Responsabilites
 		from frappe.types import DF
 
 		cadre: DF.Data | None
@@ -27,6 +28,7 @@ class Enseignant(Document):
 		nom: DF.Data | None
 		periode_avancement_consideree: DF.Data | None
 		prenom: DF.Data | None
+		responsabilite: DF.Table[Responsabilites]
 		route: DF.Data | None
 	# end: auto-generated types
 	pass

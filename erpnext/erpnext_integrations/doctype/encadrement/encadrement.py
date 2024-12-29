@@ -21,6 +21,7 @@ class Encadrement(Document):
 		parentfield: DF.Data
 		parenttype: DF.Data
 		titre_pfe: DF.Data | None
+		type: DF.Data | None
 		type_licence: DF.Data | None
 	# end: auto-generated types
 	pass

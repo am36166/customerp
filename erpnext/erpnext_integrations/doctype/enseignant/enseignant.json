@@ -14,6 +14,7 @@
   "periode_avancement_consideree",
   "enseignements_cycle",
   "encadrement_licence",
+  "responsabilite",
   "is_published",
   "route"
  ],
@@ -76,11 +77,17 @@
    "fieldtype": "Table",
    "label": "encadrement licence",
    "options": "Encadrement"
+  },
+  {
+   "fieldname": "responsabilite",
+   "fieldtype": "Table",
+   "label": "responsabilite",
+   "options": "Responsabilites"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-25 15:43:04.529193",
+ "modified": "2024-12-29 01:11:35.490865",
  "modified_by": "Administrator",
  "module": "ERPNext Integrations",
  "name": "Enseignant",
