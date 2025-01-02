@@ -9,6 +9,11 @@ app_license = "GNU General Public License (v3)"
 source_link = "https://github.com/frappe/erpnext"
 app_logo_url = "/assets/erpnext/images/erpnext-logo.svg"
 
+#home_page = "page"
+
+
+#auth_hooks = ["erpnext.auth.check_role_access"]
+
 
 add_to_apps_screen = [
 	{
@@ -112,10 +117,12 @@ website_generators = ["BOM", "Sales Partner"]
 website_context = {
 	"favicon": "/assets/erpnext/images/erpnext-favicon.svg",
 	"splash_image": "/assets/erpnext/images/erpnext-logo.svg",
+	
 }
 
 # nosemgrep
 website_route_rules = [
+
 	{"from_route": "/orders", "to_route": "Sales Order"},
 	{
 		"from_route": "/orders/<path:name>",
@@ -272,6 +279,7 @@ standard_portal_menu_items = [
 		"role": "Customer",
 	},
 	{"title": "Appointment Booking", "route": "/book_appointment"},
+
 ]
 
 default_roles = [

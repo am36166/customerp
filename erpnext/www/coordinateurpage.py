@@ -1,6 +1,7 @@
 import frappe
-no_cache = 1
+from erpnext.midlware import check_auth_and_role
 
+@check_auth_and_role("Coordinateur")
 def get_context(context):
     query = """
     SELECT 

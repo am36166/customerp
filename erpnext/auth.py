@@ -1,6 +1,10 @@
 import frappe
 from frappe.auth import LoginManager
+from frappe.sessions import clear_sessions
+from frappe.auth import HTTPRequest
 from frappe import _
+from werkzeug.wrappers import Response
+from werkzeug.utils import redirect
 
 @frappe.whitelist(allow_guest=True)
 def authenticate(usr, pwd):
@@ -18,7 +22,7 @@ def authenticate(usr, pwd):
         if usr == "Administrator":
             redirect_url = "/app"
         elif "Enseignant" in roles:
-            redirect_url = "/enseignant-annexes"
+            redirect_url = "/enseignantannexes"
         elif "Coordinateur" in roles:
             redirect_url = "/coordinateurpage"
         elif "Membre Commission" in roles:
@@ -40,28 +44,20 @@ def authenticate(usr, pwd):
         }
 
 
-def check_role_access():
-    """Rediriger les utilisateurs vers des pages spécifiques en fonction de leurs rôles"""
-    if not frappe.session.user or frappe.session.user == 'Guest':
-        frappe.local.flags.redirect_location = '/login-custom'
-        raise frappe.Redirect
+@frappe.whitelist(allow_guest=True)
+def logout():
+    try:
+        clear_sessions(user=frappe.session.user, keep_current=True, force=True)
 
-    current_path = frappe.request.path
-    print(f"Accessing path: {current_path}")
-    roles = frappe.get_roles(frappe.session.user)  # Utiliser l'utilisateur de la session
+        return {
+            "success": True,
+            "redirect_url": "/login-custom"
+        }
+    except Exception as e:
+        frappe.logger().error(f"Logout error: {str(e)}")
+        return {
+            "success": False,
+            "message": _("Error during logout")
+        }
 
-    # Définir les chemins d'accès et leurs rôles requis
-    role_paths = {
-        "/enseignant-annexes": "Enseignant",
-        "/coordinateurpage": "Coordinateur",
-        "/commission-dash": "Membre Commission",
-        "/app": "Administrator"
-    }
 
-    # Vérifier si l'utilisateur a accès à la page demandée
-    if current_path in role_paths:
-        required_role = role_paths[current_path]
-        print(f"Required role for path {current_path}: {required_role}")
-        if required_role not in roles:
-            frappe.local.flags.redirect_location = '/login-custom'
-            raise frappe.Redirect

@@ -1,6 +1,8 @@
 $(document).ready(function() {
     let currentStep = 1;
     const totalSteps = $(".form-step").length;
+    console.log("Total Steps:", totalSteps);
+    console.log("Current Step:", currentStep);  
 
     $(".next-step").click(function() {
         if (currentStep < totalSteps) {
